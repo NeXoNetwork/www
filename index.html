@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NeXo 2 — Emulador experimental de Nintendo Switch 2</title>
-  <meta name="description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20. Ya ejecuta homebrew hecho con libnx.">
-  <meta name="theme-color" content="#0b0d12">
+  <meta name="description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20. CPU ARM64 verificada contra un ARM real, JIT, hilos y los primeros pasos de la GPU.">
+  <meta name="theme-color" content="#0c0d10">
   <meta property="og:title" content="NeXo 2 — Emulador experimental de Nintendo Switch 2">
-  <meta property="og:description" content="Código abierto, C++20, desde cero. Ya ejecuta homebrew de Switch con pantalla y mandos.">
+  <meta property="og:description" content="Código abierto, C++20, desde cero. CPU ARM64 al 100 %, JIT ×6, 6 núcleos y GPU en marcha.">
   <meta property="og:image" content="assets/og.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,19 +23,18 @@
 <header class="nav" id="top">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="NeXo 2">
-      <img src="assets/logo.png" alt="" width="54" height="35">
+      <img src="assets/logo.png" alt="" width="46" height="30">
       <span>NeXo <b>2</b></span>
     </a>
     <nav class="links" id="links">
       <a href="#estado" data-i18n="nav.status">Estado</a>
-      <a href="#funciones" data-i18n="nav.features">Funciones</a>
+      <a href="#funciones" data-i18n="nav.features">Por dentro</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#compilar" data-i18n="nav.build">Compilar</a>
-      <a href="#legal" data-i18n="nav.legal">Legal</a>
     </nav>
     <div class="nav-actions">
-      <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
-      <a class="btn btn-small" href="https://git.joustech.space/NeXo/NeXo2-emu" data-i18n="nav.code">Código</a>
+      <button class="pill-btn" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
+      <a class="pill-btn accent" href="https://git.joustech.space/NeXo/NeXo2-emu" data-i18n="nav.code">Código</a>
       <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -45,36 +44,61 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="glow glow-blue"></div>
-    <div class="glow glow-red"></div>
-    <div class="wrap hero-grid">
+    <div class="wrap">
       <div class="hero-text">
-        <p class="pill"><span class="dot"></span><span data-i18n="hero.pill">En desarrollo · versión 0.0.0.2</span></p>
+        <p class="status-chip"><span class="dot"></span><span data-i18n="hero.pill">En desarrollo activo</span></p>
         <h1>NeXo <span class="two">2</span></h1>
         <p class="lead" data-i18n="hero.lead">Emulador experimental y de código abierto de Nintendo Switch&nbsp;2, escrito desde cero en C++20.</p>
-        <p class="sub" data-i18n="hero.sub">Hoy ya ejecuta homebrew hecho con libnx: arranca, dibuja en pantalla y responde al teclado o a un mando.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="https://git.joustech.space/NeXo/NeXo2-emu" data-i18n="hero.code">Ver el código</a>
-          <a class="btn btn-ghost" href="#compilar" data-i18n="hero.build">Cómo compilarlo</a>
-        </div>
       </div>
-      <figure class="screen">
-        <div class="device">
-          <div class="joy joy-l"><i></i><i></i></div>
-          <div class="panel">
+
+      <!-- Consola: pantalla y dos mandos con sus franjas de color -->
+      <figure class="console" aria-label="NeXo 2 ejecutando UMSDPong">
+        <div class="joycon left">
+          <span class="rail"></span>
+          <span class="btn-minus"></span>
+          <span class="stick"></span>
+          <span class="dpad"><i></i><i></i><i></i><i></i></span>
+          <span class="shot"></span>
+        </div>
+        <div class="slate">
+          <div class="screen">
             <img src="assets/screen-pong.png" alt="UMSDPong ejecutándose en NeXo 2" width="1280" height="720">
           </div>
-          <div class="joy joy-r"><i></i><i></i></div>
+        </div>
+        <div class="joycon right">
+          <span class="rail"></span>
+          <span class="btn-plus"></span>
+          <span class="abxy"><i></i><i></i><i></i><i></i></span>
+          <span class="stick"></span>
+          <span class="home"></span>
         </div>
         <figcaption data-i18n="hero.caption">UMSDPong (homebrew) jugándose en NeXo 2 con un mando de Xbox</figcaption>
       </figure>
-    </div>
 
+      <div class="cta">
+        <a class="btn primary" href="https://git.joustech.space/NeXo/NeXo2-emu" data-i18n="hero.code">Ver el código</a>
+        <a class="btn ghost" href="#compilar" data-i18n="hero.build">Cómo compilarlo</a>
+      </div>
+
+      <!-- Fila de accesos como el menú principal de la consola -->
+      <nav class="home-row" aria-label="Secciones">
+        <a href="#estado"><span class="round"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><b data-i18n="row.status">Estado</b></a>
+        <a href="#funciones"><span class="round"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><b>CPU</b></a>
+        <a href="#funciones"><span class="round"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><b>JIT</b></a>
+        <a href="#funciones"><span class="round"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M7 21h10M12 17v4"/></svg></span><b>GPU</b></a>
+        <a href="#roadmap"><span class="round"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 5h11l-2 4 2 4H4"/></svg></span><b>Roadmap</b></a>
+        <a href="#compilar"><span class="round"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></span><b data-i18n="row.build">Compilar</b></a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ CIFRAS ============ -->
+  <section class="section stats-band">
     <div class="wrap stats">
-      <div><b>ARM64</b><span data-i18n="stats.cpu">intérprete propio</span></div>
-      <div><b>9</b><span data-i18n="stats.services">servicios del sistema</span></div>
-      <div><b>48</b><span data-i18n="stats.tests">tests automáticos</span></div>
-      <div><b>GPLv3</b><span data-i18n="stats.license">software libre</span></div>
+      <div class="stat blue"><b>100&nbsp;%</b><span data-i18n="stats.cpu">CPU ARM64 igual que un ARM real en 78&nbsp;000 instrucciones al azar</span></div>
+      <div class="stat red"><b>×6</b><span data-i18n="stats.jit">más rápido con el JIT: ~1&nbsp;100 millones de instrucciones por segundo</span></div>
+      <div class="stat blue"><b>6</b><span data-i18n="stats.cores">núcleos emulados con hilos, mutex y variables de condición</span></div>
+      <div class="stat red"><b>136</b><span data-i18n="stats.tests">tests automáticos (68 con intérprete y 68 con JIT)</span></div>
     </div>
   </section>
 
@@ -84,24 +108,23 @@
       <h2 data-i18n="status.title">Qué hace hoy (y qué no)</h2>
       <p class="section-lead" data-i18n="status.lead">NeXo 2 está en una fase temprana. Preferimos contarlo tal cual.</p>
       <div class="two-col">
-        <div class="card yes">
+        <div class="tile yes">
           <h3 data-i18n="status.yes">Ya funciona</h3>
           <ul>
-            <li data-i18n="status.y1">Homebrew <code>.nro</code> hecho con libnx</li>
-            <li data-i18n="status.y2">Consola de texto y framebuffer en la ventana «Pantalla»</li>
-            <li data-i18n="status.y3">Mandos: teclado y mandos del PC</li>
-            <li data-i18n="status.y4">Tarjeta SD emulada con una carpeta del PC</li>
-            <li data-i18n="status.y5">Herramientas de depuración: registros, memoria, paso a paso</li>
+            <li data-i18n="status.y1">Homebrew <code>.nro</code> hecho con libnx: arranca, dibuja y responde al mando</li>
+            <li data-i18n="status.y2">CPU ARM64 completa (enteros, coma flotante, NEON, criptografía) y un JIT</li>
+            <li data-i18n="status.y3">Hilos repartidos entre 6 núcleos emulados</li>
+            <li data-i18n="status.y4">GPU, fase 1: comandos, macros, borrados, copias y blits</li>
+            <li data-i18n="status.y5">Mandos, tarjeta SD con una carpeta del PC y herramientas de depuración</li>
           </ul>
         </div>
-        <div class="card no">
+        <div class="tile no">
           <h3 data-i18n="status.no">Todavía no</h3>
           <ul>
             <li data-i18n="status.n1">Juegos comerciales</li>
-            <li data-i18n="status.n2">GPU y gráficos 3D (backend Vulkan)</li>
+            <li data-i18n="status.n2">Dibujar en 3D: shaders y backend Vulkan (GPU fase 2)</li>
             <li data-i18n="status.n3">Audio</li>
-            <li data-i18n="status.n4">Varios hilos a la vez</li>
-            <li data-i18n="status.n5">Velocidad real: con el intérprete va a pocas imágenes por segundo</li>
+            <li data-i18n="status.n4">Formatos de juego (NSO, NCA)</li>
           </ul>
         </div>
       </div>
@@ -113,50 +136,52 @@
             <tr><th data-i18n="compat.program">Programa</th><th data-i18n="compat.type">Tipo</th><th data-i18n="compat.state">Estado</th><th data-i18n="compat.notes">Notas</th></tr>
           </thead>
           <tbody>
-            <tr><td>NX-FixCheat</td><td>Homebrew (libnx)</td><td><span class="tag ok" data-i18n="compat.works">Funciona</span></td><td data-i18n="compat.n1">Menú completo y navegación con el mando</td></tr>
-            <tr><td>UMSDPong</td><td>Homebrew (libnx)</td><td><span class="tag menu" data-i18n="compat.slow">Jugable (lento)</span></td><td data-i18n="compat.n2">Se juega con teclado o mando, pero aún va lento</td></tr>
+            <tr><td>NX-FixCheat</td><td>Homebrew (libnx)</td><td><span class="tag ok" data-i18n="compat.works">Funciona</span></td><td data-i18n="compat.n1">Menú completo y navegación con el mando; rápido con el JIT</td></tr>
+            <tr><td>UMSDPong</td><td>Homebrew (libnx)</td><td><span class="tag ok" data-i18n="compat.playable">Jugable</span></td><td data-i18n="compat.n2">Se juega con teclado o mando</td></tr>
             <tr><td>libnx_init</td><td data-i18n="compat.own">Test propio</td><td><span class="tag ok" data-i18n="compat.works">Funciona</span></td><td data-i18n="compat.n3">Las 45 llamadas del arranque de libnx</td></tr>
+            <tr><td>threads</td><td data-i18n="compat.own">Test propio</td><td><span class="tag ok" data-i18n="compat.works">Funciona</span></td><td data-i18n="compat.n4">4 hilos en 4 núcleos con mutex, condvar y esperas</td></tr>
+            <tr><td>gpu</td><td data-i18n="compat.own">Test propio</td><td><span class="tag ok" data-i18n="compat.works">Funciona</span></td><td data-i18n="compat.n5">Canal de la GPU como deko3d: macro, borrado, copia y fence</td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- ============ FUNCIONES ============ -->
+  <!-- ============ POR DENTRO ============ -->
   <section id="funciones" class="section alt">
     <div class="wrap">
       <h2 data-i18n="features.title">Cómo está hecho</h2>
-      <p class="section-lead" data-i18n="features.lead">Cada parte está escrita desde cero y documentada, para que se pueda aprender de ella.</p>
+      <p class="section-lead" data-i18n="features.lead">Cada parte está escrita desde cero, documentada y comprobada con tests, para que se pueda aprender de ella.</p>
       <div class="grid">
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
+        <article class="tile feature">
+          <div class="icon blue"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
           <h3 data-i18n="f.cpu.t">CPU ARM64</h3>
-          <p data-i18n="f.cpu.d">Intérprete propio de enteros, coma flotante y NEON. Las instrucciones SIMD se comparan bit a bit con un ARM de referencia.</p>
+          <p data-i18n="f.cpu.d">Intérprete propio de todo ARMv8.2: enteros, coma flotante con las reglas exactas de ARM, NEON, AES/SHA y CRC32. Se compara con un ARM de referencia instrucción a instrucción.</p>
         </article>
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2"/></svg></div>
-          <h3 data-i18n="f.kernel.t">Kernel HLE</h3>
-          <p data-i18n="f.kernel.d">Las llamadas al sistema (SVC) del kernel de la consola, el mapa de memoria del proceso y el arranque de homebrew.</p>
+        <article class="tile feature">
+          <div class="icon red"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <h3>JIT</h3>
+          <p data-i18n="f.jit.d">dynarmic traduce el código ARM64 a x86-64 y lo ejecuta directamente: seis veces más rápido. Lo que no sabe hacer lo hace el intérprete.</p>
         </article>
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg></div>
-          <h3 data-i18n="f.ipc.t">IPC y servicios</h3>
-          <p data-i18n="f.ipc.d">Mensajes HIPC, CMIF y TIPC con dominios. Servicios sm:, applet, hid, time, fs, vi y nvdrv.</p>
+        <article class="tile feature">
+          <div class="icon blue"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="1.5"/><circle cx="14" cy="12" r="1.5"/><circle cx="10" cy="18" r="1.5"/></svg></div>
+          <h3 data-i18n="f.threads.t">Hilos</h3>
+          <p data-i18n="f.threads.d">Planificador con 6 núcleos emulados, prioridades, mutex y variables de condición como libnx, y detección de bloqueos.</p>
         </article>
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
-          <h3 data-i18n="f.display.t">Pantalla</h3>
-          <p data-i18n="f.display.d">Cola de buffers del binder, memoria nvmap y conversión del formato en bloques de la GPU (block linear) a una imagen normal.</p>
+        <article class="tile feature">
+          <div class="icon red"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M7 21h10M12 17v4"/></svg></div>
+          <h3>GPU</h3>
+          <p data-i18n="f.gpu.d">Dispositivos nvhost, canales, pushbuffers y macros de la GPU Maxwell; borra render targets, copia y escala imágenes. Probado con las macros reales de deko3d.</p>
         </article>
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M7 9h4M9 7v4"/><circle cx="15.5" cy="9.5" r="1"/><circle cx="17.5" cy="11.5" r="1"/><path d="M6 5h12a4 4 0 0 1 4 4v3a6 6 0 0 1-10 4.5h0A6 6 0 0 1 2 12V9a4 4 0 0 1 4-4z"/></svg></div>
-          <h3 data-i18n="f.input.t">Mandos</h3>
-          <p data-i18n="f.input.d">El teclado y los mandos del PC (SDL3) se escriben en la memoria compartida de hid, igual que en la consola real.</p>
+        <article class="tile feature">
+          <div class="icon blue"><svg viewBox="0 0 24 24"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg></div>
+          <h3 data-i18n="f.ipc.t">Kernel HLE e IPC</h3>
+          <p data-i18n="f.ipc.d">Llamadas al sistema (SVC), mensajes HIPC/CMIF/TIPC con dominios y los servicios del arranque de libnx: sm, applet, hid, time, fs, vi y nvdrv.</p>
         </article>
-        <article class="feature">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M10 3v4M13 3v4"/></svg></div>
-          <h3 data-i18n="f.sd.t">Tarjeta SD</h3>
-          <p data-i18n="f.sd.d">Una carpeta del PC hace de <code>sdmc:/</code>. Los programas pueden leer y escribir archivos, pero nunca salir de ella.</p>
+        <article class="tile feature">
+          <div class="icon red"><svg viewBox="0 0 24 24"><path d="M7 9h4M9 7v4"/><circle cx="15.5" cy="9.5" r="1"/><circle cx="17.5" cy="11.5" r="1"/><path d="M6 5h12a4 4 0 0 1 4 4v3a6 6 0 0 1-10 4.5A6 6 0 0 1 2 12V9a4 4 0 0 1 4-4z"/></svg></div>
+          <h3 data-i18n="f.io.t">Pantalla, mandos y SD</h3>
+          <p data-i18n="f.io.d">Cola de buffers del binder, imágenes en bloques de la GPU, mandos del PC en la memoria compartida de hid y una carpeta del PC como <code>sdmc:/</code>.</p>
         </article>
       </div>
     </div>
@@ -169,15 +194,14 @@
       <p class="section-lead" data-i18n="road.lead">Lo hecho y lo que viene, en orden.</p>
       <ol class="timeline">
         <li class="done"><b data-i18n="r1.t">Infraestructura</b><span data-i18n="r1.d">Memoria virtual, registro, ventana SDL3 + ImGui</span></li>
-        <li class="done"><b data-i18n="r2.t">CPU ARM64</b><span data-i18n="r2.d">Intérprete, coma flotante y NEON con tests diferenciales</span></li>
-        <li class="done"><b data-i18n="r3.t">Cargador NRO + kernel HLE</b><span data-i18n="r3.d">Homebrew ABI, SVC básicas, mapa de memoria</span></li>
-        <li class="done"><b data-i18n="r4.t">IPC y servicios</b><span data-i18n="r4.d">Todo el arranque de libnx</span></li>
-        <li class="done"><b data-i18n="r5.t">Pantalla, SD y mandos</b><span data-i18n="r5.d">El primer homebrew real en pantalla</span></li>
-        <li class="now"><b data-i18n="r6.t" data-now="En curso">Velocidad</b><span data-i18n="r6.d">Optimizar el intérprete y avanzar el JIT (Ballistic)</span></li>
-        <li><b data-i18n="r7.t">Hilos</b><span data-i18n="r7.d">Planificador y sincronización reales</span></li>
+        <li class="done"><b data-i18n="r2.t">Cargador NRO, kernel HLE e IPC</b><span data-i18n="r2.d">Todo el arranque de libnx</span></li>
+        <li class="done"><b data-i18n="r3.t">Pantalla, SD y mandos</b><span data-i18n="r3.d">El primer homebrew real en pantalla</span></li>
+        <li class="done"><b data-i18n="r4.t">CPU completa</b><span data-i18n="r4.d">ARMv8.2 al 100 % frente a un ARM de referencia</span></li>
+        <li class="done"><b data-i18n="r5.t">Velocidad</b><span data-i18n="r5.d">Caché de decodificación y JIT con dynarmic (×6)</span></li>
+        <li class="done"><b data-i18n="r6.t">Hilos</b><span data-i18n="r6.d">6 núcleos emulados, mutex y condvar</span></li>
+        <li class="now"><b data-i18n="r7.t" data-now="En curso">GPU</b><span data-i18n="r7.d">Fase 1 hecha (comandos, macros, borrados, copias). Siguiente: shaders y Vulkan</span></li>
         <li><b data-i18n="r8.t">Audio</b><span data-i18n="r8.d">Servicios de audio y salida por el PC</span></li>
-        <li><b data-i18n="r9.t">GPU</b><span data-i18n="r9.d">Comandos de la GPU y backend Vulkan</span></li>
-        <li><b data-i18n="r10.t">Formatos de juego</b><span data-i18n="r10.d">NSO, NCA y sistema de archivos del juego</span></li>
+        <li><b data-i18n="r9.t">Formatos de juego</b><span data-i18n="r9.d">NSO, NCA y sistema de archivos del juego</span></li>
       </ol>
     </div>
   </section>
@@ -188,15 +212,14 @@
       <h2 data-i18n="build.title">Compílalo tú</h2>
       <p class="section-lead" data-i18n="build.lead">Aún no hay versiones descargables: NeXo 2 se compila desde el código.</p>
       <div class="two-col build">
-        <div class="card">
+        <div class="tile">
           <h3 data-i18n="build.req">Requisitos (Windows)</h3>
           <ul>
             <li data-i18n="build.r1">Visual Studio 2022 con «Desarrollo para el escritorio con C++»</li>
             <li>CMake 3.25+</li>
-            <li data-i18n="build.r2">Python 3 (lo usa el JIT para generar sus tablas)</li>
             <li>Git</li>
           </ul>
-          <p class="muted" data-i18n="build.note">Después, arrastra un <code>.nro</code> a la ventana o usa «Cargar NRO» y pulsa Run (F5).</p>
+          <p class="muted" data-i18n="build.note">La primera compilación tarda unos minutos más (el JIT). Después, arrastra un <code>.nro</code> a la ventana o usa «Cargar NRO» y pulsa Run (F5).</p>
         </div>
         <div class="code">
           <div class="code-head"><span>cmd</span><button type="button" class="copy" data-copy="build-cmd" data-i18n="build.copy">Copiar</button></div>
@@ -208,12 +231,12 @@ build\Release\NeXo2.exe</pre>
         </div>
       </div>
 
-      <div class="docs card">
+      <div class="tile docs">
         <div>
           <h3 data-i18n="docs.title">Documentación</h3>
           <p data-i18n="docs.d">Hardware, sistema operativo, formatos y cómo funciona cada parte de NeXo por dentro (en inglés).</p>
         </div>
-        <a class="btn btn-ghost" href="https://git.joustech.space/NeXo/NeXo2-emu/src/branch/main/docs" data-i18n="docs.btn">Leer la documentación</a>
+        <a class="btn ghost" href="https://git.joustech.space/NeXo/NeXo2-emu/src/branch/main/docs" data-i18n="docs.btn">Leer la documentación</a>
       </div>
     </div>
   </section>
@@ -236,6 +259,7 @@ build\Release\NeXo2.exe</pre>
       <a href="https://git.joustech.space/NeXo/NeXo2-emu" data-i18n="foot.code">Código fuente</a>
       <a href="https://github.com/NeXoNetwork">GitHub</a>
       <a href="https://git.joustech.space/NeXo/NeXo2-emu/issues" data-i18n="foot.bug">Reportar un error</a>
+      <a href="#legal" data-i18n="nav.legal">Legal</a>
     </nav>
     <p class="muted" data-i18n="foot.license">Software libre bajo licencia GPLv3.</p>
   </div>
