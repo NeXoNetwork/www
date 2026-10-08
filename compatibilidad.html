@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="meta.compat">Compatibilidad — NeXo 2</title>
+  <meta name="description" content="Lo que ya funciona en NeXo 2: capturas reales y la lista de programas probados.">
+  <meta name="theme-color" content="#f2efe7">
+  <meta property="og:title" content="Compatibilidad — NeXo 2">
+  <meta property="og:description" content="Lo que ya funciona en NeXo 2: capturas reales y la lista de programas probados.">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+<header class="top">
+  <div class="page top-inner">
+    <a class="mark" href="index.html" aria-label="NeXo 2, inicio"><img src="assets/logo.png" alt="" width="30" height="20">NeXo 2</a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="index.html"><span>01</span><em data-i18n="nav.home" style="font-style:normal">Inicio</em></a>
+      <a href="compatibilidad.html" aria-current="page"><span>02</span><em data-i18n="nav.compat" style="font-style:normal">Compatibilidad</em></a>
+      <a href="por-dentro.html"><span>03</span><em data-i18n="nav.inside" style="font-style:normal">Por dentro</em></a>
+      <a href="compilar.html"><span>04</span><em data-i18n="nav.build" style="font-style:normal">Compilar</em></a>
+    </nav>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
+      <a class="gh" href="https://github.com/NeXoNetwork/NeXo2-emu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><b>GitHub</b></a>
+      <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="page">
+  <section class="page-head reveal-group">
+    <div class="page-head-grid">
+      <div>
+        <span class="label"><span class="red">02</span> — <span data-i18n="nav.compat">Compatibilidad</span></span>
+        <h1 class="title" data-i18n-lines="nav.compat.h"><span class="line"><span style="--d:0.00s">Lo que</span></span><span class="line"><span style="--d:0.08s">ya corre</span></span></h1>
+        <p class="lede reveal" style="--d:.25s" data-i18n="compat.lede">Capturas sacadas de NeXo tal cual, sin retocar. Los ejemplos 3D son los oficiales de deko3d, la librería gráfica del homebrew de Switch.</p>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shots">
+      <figure class="shot big reveal" style="--d:0s">
+        <div class="frame"><div><img src="assets/shot-teapot.jpg" alt="Tetera con luz" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.teapot.t">Tetera con luz</b><span data-i18n="c.teapot">24&nbsp;000 triángulos · 4× MSAA · sRGB</span></figcaption>
+      </figure>
+      <figure class="shot  reveal" style="--d:.08s">
+        <div class="frame"><div><img src="assets/shot-texture.jpg" alt="Cubo con textura" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.tex.t">Cubo con textura</b><span data-i18n="c.tex">BC1 desde la RomFS</span></figcaption>
+      </figure>
+      <figure class="shot  reveal" style="--d:.16s">
+        <div class="frame"><div><img src="assets/shot-msaa.jpg" alt="Cubo 3D" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.msaa.t">Cubo 3D</b><span data-i18n="c.msaa">Profundidad y MSAA</span></figcaption>
+      </figure>
+      <figure class="shot half reveal" style="--d:0s">
+        <div class="frame"><div><img src="assets/shot-triangle.jpg" alt="El primer triángulo" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.tri.t">El primer triángulo</b><span data-i18n="c.tri">Shaders Maxwell reales</span></figcaption>
+      </figure>
+      <figure class="shot half reveal" style="--d:.08s">
+        <div class="frame"><div><img src="assets/screen-pong.png" alt="UMSDPong" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.pong.t">UMSDPong</b><span data-i18n="c.pong">Jugable con mando</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head reveal">
+      <h2 data-i18n="c.list">Programas probados</h2>
+      <p data-i18n="c.listnote">Sólo homebrew. NeXo no incluye ni ayuda a conseguir juegos, firmware ni claves.</p>
+    </div>
+    <table class="table reveal">
+      <thead><tr><th data-i18n="c.th1">Programa</th><th data-i18n="c.th2">Tipo</th><th data-i18n="c.th3">Notas</th><th data-i18n="c.th4">Estado</th></tr></thead>
+      <tbody>
+        <tr><td>deko3d examples</td><td>Homebrew · deko3d</td><td data-i18n="c.n1">Triángulo, cubos, texturas, MSAA, iluminación y deferred shading. Faltan teselado y compute.</td><td><span class="state part" data-i18n="c.s1">7 de 9</span></td></tr>
+        <tr><td>UMSDPong</td><td>Homebrew · libnx</td><td data-i18n="c.n2">Se juega con teclado o mando de Xbox.</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
+        <tr><td>NX-FixCheat</td><td>Homebrew · libnx</td><td data-i18n="c.n3">Menú completo y navegación con el mando.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
+        <tr><td>libnx_init, threads, gpu</td><td data-i18n="c.own">Tests propios</td><td data-i18n="c.n4">Arranque de libnx, hilos en 4 núcleos y canal de la GPU.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
+        <tr><td data-i18n="c.games">Juegos comerciales</td><td>—</td><td data-i18n="c.n5">Faltan Vulkan, audio y los formatos de juego (NSO, NCA).</td><td><span class="state no" data-i18n="c.s5">Todavía no</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+<footer class="foot">
+  <div class="page">
+    <div class="foot-grid">
+      <div>
+        <h4 data-i18n="foot.about">NeXo 2</h4>
+        <p data-i18n="foot.legal">Proyecto independiente de investigación y aprendizaje, sin relación con Nintendo. No incluye firmware, claves ni juegos. Software libre bajo GPLv3.</p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.pages">Páginas</h4>
+        <ul>
+          <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="compatibilidad.html" data-i18n="nav.compat">Compatibilidad</a></li>
+          <li><a href="por-dentro.html" data-i18n="nav.inside">Por dentro</a></li>
+          <li><a href="compilar.html" data-i18n="nav.build">Compilar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="foot.project">Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="foot.code">Código fuente</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/tree/main/docs" data-i18n="foot.docs">Documentación</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/issues" data-i18n="foot.bug">Reportar un error</a></li>
+          <li><a href="https://github.com/NeXoNetwork">NeXoNetwork</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-word" aria-hidden="true">NeXo<span>2</span></p>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

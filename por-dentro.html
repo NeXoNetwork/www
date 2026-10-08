@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="meta.inside">Por dentro — NeXo 2</title>
+  <meta name="description" content="Cómo está hecho NeXo 2: CPU ARM64, JIT, kernel HLE, GPU Maxwell, y la ruta del proyecto.">
+  <meta name="theme-color" content="#f2efe7">
+  <meta property="og:title" content="Por dentro — NeXo 2">
+  <meta property="og:description" content="Cómo está hecho NeXo 2: CPU ARM64, JIT, kernel HLE, GPU Maxwell, y la ruta del proyecto.">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+<header class="top">
+  <div class="page top-inner">
+    <a class="mark" href="index.html" aria-label="NeXo 2, inicio"><img src="assets/logo.png" alt="" width="30" height="20">NeXo 2</a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="index.html"><span>01</span><em data-i18n="nav.home" style="font-style:normal">Inicio</em></a>
+      <a href="compatibilidad.html"><span>02</span><em data-i18n="nav.compat" style="font-style:normal">Compatibilidad</em></a>
+      <a href="por-dentro.html" aria-current="page"><span>03</span><em data-i18n="nav.inside" style="font-style:normal">Por dentro</em></a>
+      <a href="compilar.html"><span>04</span><em data-i18n="nav.build" style="font-style:normal">Compilar</em></a>
+    </nav>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
+      <a class="gh" href="https://github.com/NeXoNetwork/NeXo2-emu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><b>GitHub</b></a>
+      <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="page">
+  <section class="page-head reveal-group">
+    <div class="page-head-grid">
+      <div>
+        <span class="label"><span class="red">03</span> — <span data-i18n="nav.inside">Por dentro</span></span>
+        <h1 class="title" data-i18n-lines="nav.inside.h"><span class="line"><span style="--d:0.00s">Hecho</span></span><span class="line"><span style="--d:0.08s">a mano</span></span></h1>
+        <p class="lede reveal" style="--d:.25s" data-i18n="in.lede">De la instrucción ARM64 al píxel en tu pantalla. Cada pieza está escrita desde cero y tiene su página en la documentación.</p>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="block">
+    <ol class="layers">
+      <li class="layer reveal" style="--d:0s">
+        <span class="tag">CPU</span>
+        <h3 data-i18n="in.cpu.t">ARM64</h3>
+        <div><p data-i18n="in.cpu">Intérprete propio de todo ARMv8.2: enteros, coma flotante con las reglas exactas de ARM, NEON, AES/SHA y CRC32. Un fuzzer lo compara con un ARM de referencia, instrucción a instrucción.</p><ul><li>ARMv8.2</li><li>NEON</li><li>100 %</li></ul></div>
+      </li>
+      <li class="layer reveal" style="--d:.05s">
+        <span class="tag">JIT</span>
+        <h3 data-i18n="in.jit.t">Traducción</h3>
+        <div><p data-i18n="in.jit">dynarmic convierte el código ARM64 en código x86-64 y lo ejecuta directamente, seis veces más rápido. Lo que no sabe hacer, lo hace el intérprete.</p><ul><li>dynarmic</li><li>x86-64</li><li>×6</li></ul></div>
+      </li>
+      <li class="layer reveal" style="--d:.1s">
+        <span class="tag">HLE</span>
+        <h3 data-i18n="in.os.t">Sistema</h3>
+        <div><p data-i18n="in.os">Llamadas al sistema, mensajes HIPC/CMIF con dominios, 6 núcleos emulados con mutex y condvar, y los servicios que usa libnx.</p><ul><li>sm</li><li>applet</li><li>hid</li><li>fs</li><li>vi</li><li>nvdrv</li></ul></div>
+      </li>
+      <li class="layer reveal" style="--d:.15s">
+        <span class="tag">GPU</span>
+        <h3 data-i18n="in.gpu.t">Gráficos</h3>
+        <div><p data-i18n="in.gpu">Comandos y macros de la GPU Maxwell, intérprete de shaders, rasterizador por software en varios hilos, texturas BC1–BC5, mipmaps y MSAA. Ahora, Vulkan.</p><ul><li>Maxwell</li><li>BC1–BC5</li><li>MSAA</li></ul></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="block">
+    <div class="block-head reveal">
+      <h2 data-i18n="in.road">La ruta</h2>
+      <p data-i18n="in.roadnote">En orden y sin fechas: cada paso se da cuando el anterior está bien hecho y probado.</p>
+    </div>
+    <div class="bar-legend reveal"><span data-i18n="in.progress">Progreso general</span><span>5 / 8</span></div>
+    <div class="bar reveal"><i style="--w:62%"></i></div>
+    <ol class="road">
+      <li class="done reveal"><span class="k">01</span><div><b data-i18n="r1.t">Base</b><div class="s" data-i18n="r1">Memoria, cargador NRO, kernel HLE e IPC</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="done reveal"><span class="k">02</span><div><b data-i18n="r2.t">Pantalla y mandos</b><div class="s" data-i18n="r2">El primer homebrew real en pantalla</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="done reveal"><span class="k">03</span><div><b data-i18n="r3.t">CPU completa</b><div class="s" data-i18n="r3">ARMv8.2 al 100 %, caché y JIT</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="done reveal"><span class="k">04</span><div><b data-i18n="r4.t">Hilos</b><div class="s" data-i18n="r4">6 núcleos emulados</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="done reveal"><span class="k">05</span><div><b data-i18n="r5.t">GPU por software</b><div class="s" data-i18n="r5">Shaders, texturas, 3D</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="now reveal"><span class="k">06</span><div><b data-i18n="r6.t">Vulkan</b><div class="s" data-i18n="r6">Dibujar con la tarjeta gráfica</div></div><span class="st" data-i18n="st.now">En curso</span></li>
+      <li class="next reveal"><span class="k">07</span><div><b data-i18n="r7.t">Audio</b><div class="s" data-i18n="r7">Servicios de audio y salida por el PC</div></div><span class="st" data-i18n="st.next">Después</span></li>
+      <li class="next reveal"><span class="k">08</span><div><b data-i18n="r8.t">Formatos de juego</b><div class="s" data-i18n="r8">NSO, NCA y RomFS</div></div><span class="st" data-i18n="st.next">Después</span></li>
+    </ol>
+  </section>
+
+  <section class="block">
+    <div class="block-head reveal">
+      <h2 data-i18n="in.tests">Comprobado</h2>
+      <p data-i18n="in.testsnote">Cada cambio pasa la batería de tests dos veces: con el intérprete y con el JIT.</p>
+    </div>
+    <div class="term reveal">
+      <div class="term-head"><span>nexo2_tests.exe</span><span>Release · x64</span></div>
+      <pre id="term" aria-label="Salida de los tests"></pre>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="page">
+    <div class="foot-grid">
+      <div>
+        <h4 data-i18n="foot.about">NeXo 2</h4>
+        <p data-i18n="foot.legal">Proyecto independiente de investigación y aprendizaje, sin relación con Nintendo. No incluye firmware, claves ni juegos. Software libre bajo GPLv3.</p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.pages">Páginas</h4>
+        <ul>
+          <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="compatibilidad.html" data-i18n="nav.compat">Compatibilidad</a></li>
+          <li><a href="por-dentro.html" data-i18n="nav.inside">Por dentro</a></li>
+          <li><a href="compilar.html" data-i18n="nav.build">Compilar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="foot.project">Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="foot.code">Código fuente</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/tree/main/docs" data-i18n="foot.docs">Documentación</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/issues" data-i18n="foot.bug">Reportar un error</a></li>
+          <li><a href="https://github.com/NeXoNetwork">NeXoNetwork</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-word" aria-hidden="true">NeXo<span>2</span></p>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

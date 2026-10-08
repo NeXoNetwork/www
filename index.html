@@ -3,239 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NeXo 2 — Emulador experimental de Nintendo Switch 2</title>
-  <meta name="description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20. CPU ARM64 verificada, JIT, hilos, GPU Maxwell con shaders y texturas, y Vulkan en camino.">
-  <meta name="theme-color" content="#0b0b0c">
+  <title data-i18n="meta.home">NeXo 2 — Emulador experimental de Nintendo Switch 2</title>
+  <meta name="description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20.">
+  <meta name="theme-color" content="#f2efe7">
   <meta property="og:title" content="NeXo 2 — Emulador experimental de Nintendo Switch 2">
-  <meta property="og:description" content="Código abierto, C++20, desde cero. CPU ARM64 al 100 %, JIT ×6, GPU con shaders y texturas, y los ejemplos 3D de deko3d funcionando.">
+  <meta property="og:description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20.">
   <meta property="og:image" content="assets/og.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-
 <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
-
-<header class="nav" id="top">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="NeXo 2">
-      <img src="assets/logo.png" alt="" width="40" height="26">
-      <span>NeXo&nbsp;2</span>
-    </a>
-    <nav class="links" id="links">
-      <a href="#corre" data-i18n="nav.runs">Lo que corre</a>
-      <a href="#dentro" data-i18n="nav.inside">Por dentro</a>
-      <a href="#ruta" data-i18n="nav.road">Ruta</a>
-      <a href="#compilar" data-i18n="nav.build">Compilar</a>
+<header class="top">
+  <div class="page top-inner">
+    <a class="mark" href="index.html" aria-label="NeXo 2, inicio"><img src="assets/logo.png" alt="" width="30" height="20">NeXo 2</a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="index.html" aria-current="page"><span>01</span><em data-i18n="nav.home" style="font-style:normal">Inicio</em></a>
+      <a href="compatibilidad.html"><span>02</span><em data-i18n="nav.compat" style="font-style:normal">Compatibilidad</em></a>
+      <a href="por-dentro.html"><span>03</span><em data-i18n="nav.inside" style="font-style:normal">Por dentro</em></a>
+      <a href="compilar.html"><span>04</span><em data-i18n="nav.build" style="font-style:normal">Compilar</em></a>
     </nav>
-    <div class="nav-actions">
+    <div class="tools">
       <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
-      <a class="btn small" href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="nav.code">Código</a>
-      <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+      <a class="gh" href="https://github.com/NeXoNetwork/NeXo2-emu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><b>GitHub</b></a>
+      <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
     </div>
   </div>
 </header>
 
-<main id="main">
-
-  <!-- ===================== PORTADA ===================== -->
+<main id="main" class="page">
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow reveal"><span class="pulse"></span><span data-i18n="hero.eyebrow">v0.0.2 · en desarrollo activo</span></p>
-        <h1 class="reveal" data-i18n="hero.title">Un emulador de Switch&nbsp;2, escrito <em>desde cero</em>.</h1>
-        <p class="lead reveal" data-i18n="hero.lead">NeXo 2 es código abierto en C++20. Cada pieza —la CPU, el kernel, la GPU— está hecha a mano, documentada y comprobada con tests. Todavía no ejecuta juegos comerciales; sí homebrew, y ya dibuja en 3D.</p>
-        <div class="cta reveal">
-          <a class="btn" href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="hero.code">Ver el código</a>
-          <a class="link-arrow" href="#corre" data-i18n="hero.see">Ver lo que ya corre</a>
+    <div class="hero-meta reveal">
+      <span class="label"><span class="red">●</span> <span data-i18n="home.meta1">En desarrollo · v0.0.2</span></span>
+      <span class="label" data-i18n="home.meta2">C++20 · Código abierto · GPLv3</span>
+    </div>
+    <h1 class="display" data-i18n-lines="home.h">
+      <span class="line"><span>Switch 2,</span></span>
+      <span class="line"><span style="--d:.08s">desde</span></span>
+      <span class="line"><span style="--d:.16s"><span class="red">cero.</span></span></span>
+    </h1>
+    <div class="hero-grid">
+      <div class="reveal" style="--d:.3s">
+        <p class="lede" data-i18n="home.lede">NeXo 2 es un emulador experimental de Nintendo Switch 2. La CPU, el kernel y la GPU están escritos a mano, documentados y comprobados con tests. Aún no ejecuta juegos comerciales; homebrew sí, y ya dibuja en 3D.</p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="home.cta1">Ver en GitHub</a>
+          <a class="btn line-btn" href="compatibilidad.html" data-i18n="home.cta2">Qué funciona</a>
         </div>
       </div>
-
-      <figure class="stage reveal" aria-hidden="true">
-        <div class="scene">
-          <div class="cube">
-            <i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i>
-          </div>
+      <figure class="screen reveal" style="--d:.2s" id="screen">
+        <div class="screen-inner">
+          <img src="assets/shot-teapot.jpg" alt="Tetera con luz" data-cap="deko3d · 07" class="on" width="960" height="540">
+          <img src="assets/shot-texture.jpg" alt="Cubo con textura" data-cap="deko3d · 04" width="960" height="540" loading="lazy">
+          <img src="assets/shot-msaa.jpg" alt="MSAA" data-cap="deko3d · 06" width="960" height="540" loading="lazy">
+          <img src="assets/shot-triangle.jpg" alt="Triángulo" data-cap="deko3d · 02" width="960" height="540" loading="lazy">
+          <img src="assets/screen-pong.png" alt="UMSDPong" data-cap="libnx" width="960" height="540" loading="lazy">
         </div>
-        <div class="floor"></div>
-        <figcaption>
-          <span class="mono">deko3d · example 03</span>
-          <span data-i18n="hero.cubenote">Este cubo es CSS. El de verdad, dibujado por NeXo, está más abajo.</span>
-        </figcaption>
+        <figcaption><span><b id="cap">deko3d · 07</b> · <span data-i18n="home.capnote">captura real de NeXo</span></span><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span></figcaption>
       </figure>
     </div>
 
-    <div class="wrap">
-      <dl class="figures">
-        <div class="fig reveal"><dt><span class="count" data-to="100">0</span>%</dt><dd data-i18n="fig.cpu">CPU ARM64 idéntica a un ARM real en 78&nbsp;000 instrucciones al azar</dd></div>
-        <div class="fig reveal"><dt>×<span class="count" data-to="6">0</span></dt><dd data-i18n="fig.jit">más rápido con el JIT: ~1&nbsp;100 millones de instrucciones por segundo</dd></div>
-        <div class="fig reveal"><dt><span class="count" data-to="1200">0</span></dt><dd data-i18n="fig.shaders">programas de GPU aleatorios que el intérprete de shaders calcula bien</dd></div>
-        <div class="fig reveal"><dt><span class="count" data-to="178">0</span></dt><dd data-i18n="fig.tests">tests automáticos, con intérprete y con JIT</dd></div>
-      </dl>
+    <div class="facts">
+      <div class="fact reveal"><b><span class="count" data-to="100">100</span>%</b><span data-i18n="home.f1">CPU ARM64 idéntica a un ARM real en 78&nbsp;000 instrucciones al azar</span></div>
+      <div class="fact reveal" style="--d:.08s"><b>×<span class="count" data-to="6">6</span></b><span data-i18n="home.f2">más rápida con el JIT: ~1&nbsp;100 millones de instrucciones por segundo</span></div>
+      <div class="fact reveal" style="--d:.16s"><b><span class="count" data-to="7">7</span>/9</b><span data-i18n="home.f3">ejemplos 3D oficiales de deko3d funcionando</span></div>
+      <div class="fact reveal" style="--d:.24s"><b><span class="count" data-to="178">178</span></b><span data-i18n="home.f4">tests automáticos, con intérprete y con JIT</span></div>
     </div>
   </section>
 
-  <!-- ===================== LO QUE CORRE ===================== -->
-  <section id="corre" class="section">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="kicker">01</p>
-        <h2 data-i18n="runs.title">Lo que ya corre</h2>
-        <p data-i18n="runs.lead">Capturas sacadas de NeXo, sin retocar. Los ejemplos 3D son los oficiales de deko3d, la librería gráfica del homebrew de Switch.</p>
-      </header>
-
-      <div class="gallery">
-        <figure class="shot wide reveal">
-          <img src="assets/shot-teapot.jpg" alt="Tetera iluminada" loading="lazy" width="960" height="540">
-          <figcaption><b data-i18n="runs.teapot.t">Tetera con luz</b><span data-i18n="runs.teapot">24&nbsp;000 triángulos, 4× MSAA y sRGB</span></figcaption>
-        </figure>
-        <figure class="shot reveal">
-          <img src="assets/shot-texture.jpg" alt="Cubo con textura" loading="lazy" width="960" height="540">
-          <figcaption><b data-i18n="runs.tex.t">Cubo con textura</b><span data-i18n="runs.tex">Textura BC1 leída de la RomFS del .nro</span></figcaption>
-        </figure>
-        <figure class="shot reveal">
-          <img src="assets/screen-pong.png" alt="UMSDPong en NeXo 2" loading="lazy" width="1280" height="720">
-          <figcaption><b>UMSDPong</b><span data-i18n="runs.pong">Homebrew jugable con teclado o mando de Xbox</span></figcaption>
-        </figure>
-        <figure class="shot reveal">
-          <img src="assets/shot-msaa.jpg" alt="Cubo con multisampling" loading="lazy" width="960" height="540">
-          <figcaption><b data-i18n="runs.msaa.t">Cubo 3D</b><span data-i18n="runs.msaa">Profundidad, perspectiva y multisampling</span></figcaption>
-        </figure>
-        <figure class="shot reveal">
-          <img src="assets/shot-triangle.jpg" alt="Triángulo" loading="lazy" width="960" height="540">
-          <figcaption><b data-i18n="runs.tri.t">El primer triángulo</b><span data-i18n="runs.tri">Shaders Maxwell reales, ejecutados en un intérprete propio</span></figcaption>
-        </figure>
-      </div>
-
-      <div class="compat reveal">
-        <div class="compat-row head"><span data-i18n="compat.program">Programa</span><span data-i18n="compat.type">Tipo</span><span data-i18n="compat.state">Estado</span></div>
-        <div class="compat-row"><span>deko3d examples</span><span data-i18n="compat.hb">Homebrew (deko3d)</span><span><i class="tag ok" data-i18n="compat.most">7 de 9</i></span></div>
-        <div class="compat-row"><span>UMSDPong</span><span data-i18n="compat.hb2">Homebrew (libnx)</span><span><i class="tag ok" data-i18n="compat.playable">Jugable</i></span></div>
-        <div class="compat-row"><span>NX-FixCheat</span><span data-i18n="compat.hb2">Homebrew (libnx)</span><span><i class="tag ok" data-i18n="compat.works">Funciona</i></span></div>
-        <div class="compat-row"><span data-i18n="compat.commercial">Juegos comerciales</span><span>—</span><span><i class="tag no" data-i18n="compat.notyet">Todavía no</i></span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== POR DENTRO ===================== -->
-  <section id="dentro" class="section dark">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="kicker">02</p>
-        <h2 data-i18n="inside.title">Por dentro</h2>
-        <p data-i18n="inside.lead">De la instrucción ARM64 al píxel en tu pantalla. Cada paso tiene su propia página en la documentación.</p>
-      </header>
-
-      <svg class="flow reveal" viewBox="0 0 1000 120" role="img" aria-label="CPU → Kernel → GPU → Pantalla">
-        <path class="flow-line" d="M90 60 H910"/>
-        <path class="flow-run" d="M90 60 H910"/>
-        <g class="flow-node"><circle cx="90" cy="60" r="7"/><text x="90" y="30">ARM64</text></g>
-        <g class="flow-node"><circle cx="363" cy="60" r="7"/><text x="363" y="30" data-i18n="flow.kernel">Kernel HLE</text></g>
-        <g class="flow-node"><circle cx="636" cy="60" r="7"/><text x="636" y="30">GPU Maxwell</text></g>
-        <g class="flow-node"><circle cx="910" cy="60" r="7"/><text x="910" y="30" data-i18n="flow.screen">Pantalla</text></g>
-        <text class="flow-sub" x="90" y="100" data-i18n="flow.s1">intérprete + JIT</text>
-        <text class="flow-sub" x="363" y="100" data-i18n="flow.s2">SVC, IPC, servicios</text>
-        <text class="flow-sub" x="636" y="100" data-i18n="flow.s3">shaders, texturas</text>
-        <text class="flow-sub" x="910" y="100">vi · binder</text>
-      </svg>
-
-      <ol class="parts">
-        <li class="part reveal">
-          <span class="num">CPU</span>
-          <div><h3 data-i18n="p.cpu.t">ARMv8.2 completo</h3><p data-i18n="p.cpu.d">Enteros, coma flotante con las reglas exactas de ARM, NEON, AES/SHA y CRC32. Un fuzzer lo compara con un ARM de referencia instrucción a instrucción.</p></div>
-        </li>
-        <li class="part reveal">
-          <span class="num">JIT</span>
-          <div><h3 data-i18n="p.jit.t">Traducción a x86-64</h3><p data-i18n="p.jit.d">dynarmic convierte el código ARM64 en código del PC y lo ejecuta directamente. Lo que no sabe hacer, lo hace el intérprete.</p></div>
-        </li>
-        <li class="part reveal">
-          <span class="num">HLE</span>
-          <div><h3 data-i18n="p.os.t">Kernel e IPC</h3><p data-i18n="p.os.d">Llamadas al sistema, mensajes HIPC/CMIF con dominios, 6 núcleos emulados con mutex y condvar, y los servicios que usa libnx: sm, applet, hid, time, fs, vi y nvdrv.</p></div>
-        </li>
-        <li class="part reveal">
-          <span class="num">GPU</span>
-          <div><h3 data-i18n="p.gpu.t">Shaders y texturas</h3><p data-i18n="p.gpu.d">Decodificador e intérprete de shaders Maxwell, rasterizador por software en varios hilos, texturas BC1–BC5, mipmaps, MSAA y profundidad. Vulkan, en camino.</p></div>
-        </li>
-      </ol>
-
-      <div class="terminal reveal" aria-label="Salida de los tests">
-        <div class="term-bar"><i></i><i></i><i></i><span>nexo2_tests.exe</span></div>
-        <pre id="term"></pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== RUTA ===================== -->
-  <section id="ruta" class="section">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="kicker">03</p>
-        <h2 data-i18n="road.title">La ruta</h2>
-        <p data-i18n="road.lead">Lo hecho y lo que viene, en orden. Sin fechas: se hace cuando está bien hecho.</p>
-      </header>
-
-      <ol class="road">
-        <li class="done reveal"><b data-i18n="r1.t">Base</b><span data-i18n="r1.d">Memoria, cargador NRO, kernel HLE e IPC</span></li>
-        <li class="done reveal"><b data-i18n="r2.t">Pantalla y mandos</b><span data-i18n="r2.d">El primer homebrew real en pantalla</span></li>
-        <li class="done reveal"><b>CPU</b><span data-i18n="r3.d">ARMv8.2 al 100 %, caché y JIT (×6)</span></li>
-        <li class="done reveal"><b data-i18n="r4.t">Hilos</b><span data-i18n="r4.d">6 núcleos emulados</span></li>
-        <li class="done reveal"><b data-i18n="r5.t">GPU por software</b><span data-i18n="r5.d">Comandos, shaders, texturas y 3D</span></li>
-        <li class="now reveal"><b>Vulkan</b><span data-i18n="r6.d">Dibujar con la tarjeta gráfica: dispositivo listo, traductor de shaders en marcha</span></li>
-        <li class="reveal"><b data-i18n="r7.t">Audio</b><span data-i18n="r7.d">Servicios de audio y salida por el PC</span></li>
-        <li class="reveal"><b data-i18n="r8.t">Formatos de juego</b><span data-i18n="r8.d">NSO, NCA y RomFS</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ===================== COMPILAR ===================== -->
-  <section id="compilar" class="section dark">
-    <div class="wrap build">
-      <header class="section-head reveal">
-        <p class="kicker">04</p>
-        <h2 data-i18n="build.title">Compílalo tú</h2>
-        <p data-i18n="build.lead">Aún no hay versiones para descargar. Con Visual Studio 2022, CMake y Git se compila en unos minutos.</p>
-        <a class="link-arrow" href="https://github.com/NeXoNetwork/NeXo2-emu/tree/main/docs" data-i18n="build.docs">Leer la documentación</a>
-      </header>
-
-      <div class="code reveal">
-        <div class="code-bar"><span>cmd</span><button type="button" class="copy" data-copy="build-cmd" data-i18n="build.copy">Copiar</button></div>
-<pre id="build-cmd"><span class="c-dim">&gt;</span> git clone --recursive https://github.com/NeXoNetwork/NeXo2-emu.git
-<span class="c-dim">&gt;</span> cd NeXo2-emu
-<span class="c-dim">&gt;</span> cmake -S . -B build -G "Visual Studio 17 2022" -A x64
-<span class="c-dim">&gt;</span> cmake --build build --config Release
-<span class="c-dim">&gt;</span> build\Release\NeXo2.exe</pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== LEGAL ===================== -->
-  <section id="legal" class="section legal">
-    <div class="wrap">
-      <p data-i18n="legal.p1">NeXo 2 es un proyecto independiente de investigación y aprendizaje. No está afiliado, asociado ni respaldado por Nintendo. «Nintendo Switch» es una marca registrada de Nintendo.</p>
-      <p data-i18n="legal.p2">NeXo 2 no incluye firmware, claves ni juegos, y no ayuda a conseguirlos. Úsalo con homebrew o con software que poseas legalmente.</p>
-    </div>
-  </section>
-
+  <nav class="index" aria-label="Secciones">
+    <a href="compatibilidad.html" class="reveal"><span class="n">02</span><span class="t"><span data-i18n="nav.compat">Compatibilidad</span><span class="arrow">→</span></span><span class="d" data-i18n="home.i2">Capturas y lista de lo que ya corre</span></a>
+    <a href="por-dentro.html" class="reveal"><span class="n">03</span><span class="t"><span data-i18n="nav.inside">Por dentro</span><span class="arrow">→</span></span><span class="d" data-i18n="home.i3">Cómo está hecho y hacia dónde va</span></a>
+    <a href="compilar.html" class="reveal"><span class="n">04</span><span class="t"><span data-i18n="nav.build">Compilar</span><span class="arrow">→</span></span><span class="d" data-i18n="home.i4">Requisitos, comandos y documentación</span></a>
+  </nav>
 </main>
-
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <span class="brand small"><img src="assets/logo.png" alt="" width="32" height="21">NeXo&nbsp;2</span>
-    <nav>
-      <a href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="foot.code">Código fuente</a>
-      <a href="https://github.com/NeXoNetwork">NeXoNetwork</a>
-      <a href="https://github.com/NeXoNetwork/NeXo2-emu/issues" data-i18n="foot.bug">Reportar un error</a>
-    </nav>
-    <span class="muted" data-i18n="foot.license">Software libre · GPLv3</span>
+<footer class="foot">
+  <div class="page">
+    <div class="foot-grid">
+      <div>
+        <h4 data-i18n="foot.about">NeXo 2</h4>
+        <p data-i18n="foot.legal">Proyecto independiente de investigación y aprendizaje, sin relación con Nintendo. No incluye firmware, claves ni juegos. Software libre bajo GPLv3.</p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.pages">Páginas</h4>
+        <ul>
+          <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="compatibilidad.html" data-i18n="nav.compat">Compatibilidad</a></li>
+          <li><a href="por-dentro.html" data-i18n="nav.inside">Por dentro</a></li>
+          <li><a href="compilar.html" data-i18n="nav.build">Compilar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="foot.project">Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="foot.code">Código fuente</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/tree/main/docs" data-i18n="foot.docs">Documentación</a></li>
+          <li><a href="https://github.com/NeXoNetwork/NeXo2-emu/issues" data-i18n="foot.bug">Reportar un error</a></li>
+          <li><a href="https://github.com/NeXoNetwork">NeXoNetwork</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-word" aria-hidden="true">NeXo<span>2</span></p>
   </div>
 </footer>
-
 <script src="main.js"></script>
 </body>
 </html>
