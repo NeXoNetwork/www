@@ -1,4 +1,4 @@
-// NeXo 2 — web. Un solo archivo para las 4 paginas: idioma (ES/EN), menu movil,
+// NeXo 2 — web. Un solo archivo para las 4 paginas: idioma (ES/EN), tema claro/oscuro, menu movil,
 // animaciones al entrar, capturas que se turnan, contadores, terminal y "Copiar".
 (function () {
   "use strict";
@@ -16,12 +16,12 @@
     "nav.home": "Home", "nav.compat": "Compatibility", "nav.inside": "Inside", "nav.build": "Build",
     "home.meta1": "In development · v0.0.2", "home.meta2": "C++20 · Open source · GPLv3",
     "home.h": ["Switch 2,", "from", "<span class=\"red\">scratch.</span>"],
-    "home.lede": "NeXo 2 is an experimental Nintendo Switch 2 emulator. The CPU, the kernel and the GPU are written by hand, documented and checked with tests. It doesn't run commercial games yet; homebrew it does, and it already draws in 3D.",
+    "home.lede": "NeXo 2 is an experimental Nintendo Switch 2 emulator. The CPU, the kernel and the GPU are written by hand, documented and checked with tests. It doesn't run commercial games yet; homebrew it does: it draws in 3D, opens the homebrew menu, and the App Store downloads its catalogue over https.",
     "home.cta1": "View on GitHub", "home.cta2": "What works",
     "home.capnote": "real NeXo screenshot",
     "home.f1": "ARM64 CPU identical to a real ARM across 78&nbsp;000 random instructions",
     "home.f2": "faster with the JIT: ~1&nbsp;100 million instructions per second",
-    "home.f3": "official deko3d 3D samples running",
+    "home.f3": "emulated cores, each on its own PC thread; the GPU, on another",
     "home.f4": "automated tests, with the interpreter and with the JIT",
     "home.i2": "Screenshots and the list of what already runs",
     "home.i3": "How it's built and where it's going",
@@ -33,6 +33,12 @@
     "c.msaa.t": "3D cube", "c.msaa": "Depth and MSAA",
     "c.tri.t": "The first triangle", "c.tri": "Real Maxwell shaders",
     "c.pong.t": "UMSDPong", "c.pong": "Playable with a controller",
+    "c.hb.t": "hbmenu", "c.hb": "The homebrew menu, with the system font",
+    "c.as.t": "Homebrew App Store", "c.as": "Real catalogue downloaded over https",
+    "c.n6": "Lists the .nro files on the SD card, shows their icons and opens other programs (chain loading).",
+    "c.n7": "Downloads the catalogue over https (real TLS) and is navigated with the controller.",
+    "c.n8": "Boots and asks for its data files, which aren't included.",
+    "c.port": "Homebrew port", "c.s8": "Boots",
     "c.list": "Tested programs",
     "c.listnote": "Homebrew only. NeXo doesn't include or help to get games, firmware or keys.",
     "c.th1": "Program", "c.th2": "Type", "c.th3": "Notes", "c.th4": "Status",
@@ -47,18 +53,20 @@
     "in.lede": "From the ARM64 instruction to the pixel on your screen. Every piece is written from scratch and has its own page in the docs.",
     "in.cpu.t": "ARM64", "in.cpu": "Our own interpreter for all of ARMv8.2: integer, floating point with ARM's exact rules, NEON, AES/SHA and CRC32. A fuzzer compares it with a reference ARM, instruction by instruction.",
     "in.jit.t": "Translation", "in.jit": "dynarmic turns ARM64 code into x86-64 code and runs it directly, six times faster. Anything it can't handle, the interpreter does.",
-    "in.os.t": "System", "in.os": "System calls, HIPC/CMIF messages with domains, 6 emulated cores with mutexes and condvars, and the services libnx uses.",
-    "in.gpu.t": "Graphics", "in.gpu": "Maxwell GPU commands and macros, a shader interpreter, a multithreaded software rasterizer, BC1–BC5 textures, mipmaps and MSAA. Now, Vulkan.",
+    "in.os.t": "System", "in.os": "System calls, HIPC/CMIF messages with domains, 6 emulated cores on real PC threads, and the services libnx uses.",
+    "in.gpu.t": "Graphics", "in.gpu": "Maxwell GPU commands and macros on their own thread, a shader interpreter, a multithreaded software rasterizer with a texture cache, BC1–BC5, mipmaps and MSAA. Now, Vulkan.",
+    "in.net.t": "Network", "in.net": "Sockets, DNS and https over the PC's network. The TLS is real, with mbedTLS, and servers are checked against the system's certificates.",
     "in.road": "The roadmap", "in.roadnote": "In order and without dates: each step comes when the previous one is done right and tested.",
     "in.progress": "Overall progress",
     "r1.t": "Foundations", "r1": "Memory, NRO loader, HLE kernel and IPC",
     "r2.t": "Display and controllers", "r2": "The first real homebrew on screen",
     "r3.t": "Complete CPU", "r3": "ARMv8.2 at 100 %, decode cache and JIT",
-    "r4.t": "Threads", "r4": "6 emulated cores",
+    "r4.t": "Threads", "r4": "6 emulated cores on real threads, and the GPU on its own",
     "r5.t": "Software GPU", "r5": "Shaders, textures, 3D",
     "r6.t": "Vulkan", "r6": "Drawing on the graphics card",
     "r7.t": "Audio", "r7": "Audio services and output through the PC",
     "r8.t": "Game formats", "r8": "NSO, NCA and RomFS",
+    "r9.t": "Network and https", "r9": "Sockets, DNS and TLS with mbedTLS",
     "st.done": "Done", "st.now": "In progress", "st.next": "Later",
     "in.tests": "Checked", "in.testsnote": "Every change runs the test suite twice: with the interpreter and with the JIT.",
     "nav.build.h": ["Build", "it yourself"],
@@ -67,7 +75,7 @@
     "b.r1": "With “Desktop development with C++”.", "b.r2": "From cmake.org, or the one bundled with Visual Studio.",
     "b.r3": "To get the code and its submodules.", "b.r4t": "A Vulkan GPU", "b.r4": "Optional for now: without it, NeXo draws in software.",
     "b.copy": "Copy",
-    "b.note": "Then drag a <code>.nro</code> onto the window (or “Cargar NRO”) and press Run or F5. If you have devkitPro installed, use the Windows CMake, not the MSYS2 one.",
+    "b.note": "<code>build.bat</code> finds Visual Studio's CMake (even with devkitPro installed), builds in Release and, with <code>test</code>, runs the tests. If you cloned it before, fetch the new submodules (like mbedTLS) with <code>git submodule update --init --recursive</code>. Then drag a <code>.nro</code> onto the window (or “Cargar NRO”) and press Run or F5.",
     "b.docs": "Documentation", "b.docsnote": "Hardware, operating system, formats and how each part of NeXo works inside.",
     "b.docsbtn": "Read the docs",
     "b.legal": "Legal notice",
@@ -78,8 +86,8 @@
     "foot.pages": "Pages", "foot.project": "Project", "foot.code": "Source code", "foot.docs": "Documentation", "foot.bug": "Report a bug"
   };
   var UI = {
-    es: { copy: "Copiar", copied: "Copiado", tests: "tests", checks: "comprobaciones", fails: "fallos", lang: "EN" },
-    en: { copy: "Copy", copied: "Copied", tests: "tests", checks: "checks", fails: "failures", lang: "ES" }
+    es: { copy: "Copiar", copied: "Copiado", tests: "tests", checks: "comprobaciones", fails: "fallos", lang: "EN", toDark: "Cambiar a tema oscuro", toLight: "Cambiar a tema claro" },
+    en: { copy: "Copy", copied: "Copied", tests: "tests", checks: "checks", fails: "failures", lang: "ES", toDark: "Switch to dark theme", toLight: "Switch to light theme" }
   };
 
   // Guardar el español original de cada texto
@@ -108,6 +116,33 @@
     if (b) b.textContent = UI[l].lang;
     try { localStorage.setItem("nexo-lang", l); } catch (e) { /* sin almacenamiento */ }
     if (termShown) renderTerm(TERM.length);
+    updateThemeButton();
+  }
+
+  // ------------------------------------------------------------------
+  // Tema claro / oscuro. El script del <head> ya lo puso antes de pintar
+  // (sin destello); aqui solo el boton. Sin eleccion guardada, sigue al sistema.
+  // ------------------------------------------------------------------
+  var root = document.documentElement;
+  function theme() { return root.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+  function updateThemeButton() {
+    var b = $("#theme");
+    if (!b) return;
+    var dark = theme() === "dark";
+    b.setAttribute("aria-pressed", dark ? "true" : "false");
+    b.setAttribute("aria-label", dark ? UI[lang].toLight : UI[lang].toDark);
+    b.title = b.getAttribute("aria-label");
+  }
+  function setTheme(t, save) {
+    if (!reduced) {
+      root.classList.add("theme-anim");
+      setTimeout(function () { root.classList.remove("theme-anim"); }, 400);
+    }
+    root.setAttribute("data-theme", t);
+    var meta = $("#theme-color");
+    if (meta) meta.setAttribute("content", t === "dark" ? "#121211" : "#f2efe7");
+    if (save) { try { localStorage.setItem("nexo-theme", t); } catch (e) { /* sin almacenamiento */ } }
+    updateThemeButton();
   }
 
   // ------------------------------------------------------------------
@@ -120,6 +155,7 @@
     ["ok", "[ OK ] Shader_Fuzz"],
     ["ok", "[ OK ] Texture_MipmapsLodAndGrad"],
     ["ok", "[ OK ] Draw_PerspectiveFromUniformMatrix"],
+    ["ok", "[ OK ] Network_LoopbackTcp"],
     ["", "===== CPU: JIT (dynarmic) ====="],
     ["ok", "[ OK ] [JIT] Vulkan_ComputeSmoke"],
     ["ok", "[ OK ] [JIT] Draw_NroTriangle"],
@@ -133,7 +169,7 @@
       var s = document.createElement("span");
       s.className = TERM[i][0];
       s.textContent = TERM[i][0] === "sum"
-        ? "178 " + UI[lang].tests + ", 1334 " + UI[lang].checks + ", 0 " + UI[lang].fails
+        ? "196 " + UI[lang].tests + ", 1558 " + UI[lang].checks + ", 0 " + UI[lang].fails
         : TERM[i][1];
       term.appendChild(s);
       term.appendChild(document.createTextNode("\n"));
@@ -153,6 +189,17 @@
   setLang(saved || (nav === "es" ? "es" : "en"));
   var langBtn = $("#lang");
   if (langBtn) langBtn.addEventListener("click", function () { setLang(lang === "es" ? "en" : "es"); });
+  var themeBtn = $("#theme");
+  if (themeBtn) themeBtn.addEventListener("click", function () { setTheme(theme() === "dark" ? "light" : "dark", true); });
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var follow = function (e) {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem("nexo-theme"); } catch (err) {}
+      if (savedTheme !== "light" && savedTheme !== "dark") setTheme(e.matches ? "dark" : "light", false);
+    };
+    if (mq.addEventListener) mq.addEventListener("change", follow); else if (mq.addListener) mq.addListener(follow);
+  }
 
   // ------------------------------------------------------------------
   // Menu movil

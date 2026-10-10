@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n="meta.home">NeXo 2 — Emulador experimental de Nintendo Switch 2</title>
   <meta name="description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20.">
-  <meta name="theme-color" content="#f2efe7">
+  <meta name="theme-color" content="#f2efe7" id="theme-color">
+  <meta name="color-scheme" content="light dark">
   <meta property="og:title" content="NeXo 2 — Emulador experimental de Nintendo Switch 2">
   <meta property="og:description" content="NeXo 2 es un emulador experimental y de código abierto de Nintendo Switch 2, escrito desde cero en C++20.">
   <meta property="og:image" content="assets/og.jpg">
@@ -15,7 +16,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>(function(){var d=document.documentElement,t=null;d.classList.add("js");try{t=localStorage.getItem("nexo-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",t);document.getElementById("theme-color").content=t==="dark"?"#121211":"#f2efe7"})()</script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
@@ -29,6 +30,7 @@
       <a href="compilar.html"><span>04</span><em data-i18n="nav.build" style="font-style:normal">Compilar</em></a>
     </nav>
     <div class="tools">
+      <button class="theme" id="theme" type="button" aria-label="Tema claro u oscuro / Light or dark theme" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v3M12 19.2v3M1.8 12h3M19.2 12h3M4.8 4.8l2.1 2.1M17.1 17.1l2.1 2.1M4.8 19.2l2.1-2.1M17.1 6.9l2.1-2.1"/></g><path class="moon" d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/></svg></button>
       <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
       <a class="gh" href="https://github.com/NeXoNetwork/NeXo2-emu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><b>GitHub</b></a>
       <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
@@ -49,7 +51,7 @@
     </h1>
     <div class="hero-grid">
       <div class="reveal" style="--d:.3s">
-        <p class="lede" data-i18n="home.lede">NeXo 2 es un emulador experimental de Nintendo Switch 2. La CPU, el kernel y la GPU están escritos a mano, documentados y comprobados con tests. Aún no ejecuta juegos comerciales; homebrew sí, y ya dibuja en 3D.</p>
+        <p class="lede" data-i18n="home.lede">NeXo 2 es un emulador experimental de Nintendo Switch 2. La CPU, el kernel y la GPU están escritos a mano, documentados y comprobados con tests. Aún no ejecuta juegos comerciales; homebrew sí: dibuja en 3D, abre el menú de homebrew y la App Store descarga su catálogo por https.</p>
         <div class="actions">
           <a class="btn" href="https://github.com/NeXoNetwork/NeXo2-emu" data-i18n="home.cta1">Ver en GitHub</a>
           <a class="btn line-btn" href="compatibilidad.html" data-i18n="home.cta2">Qué funciona</a>
@@ -57,21 +59,23 @@
       </div>
       <figure class="screen reveal" style="--d:.2s" id="screen">
         <div class="screen-inner">
-          <img src="assets/shot-teapot.jpg" alt="Tetera con luz" data-cap="deko3d · 07" class="on" width="960" height="540">
+          <img src="assets/shot-hbmenu.jpg" alt="hbmenu" data-cap="hbmenu" class="on" width="960" height="540">
+          <img src="assets/shot-appstore.jpg" alt="Homebrew App Store" data-cap="HB App Store" width="960" height="540" loading="lazy">
+          <img src="assets/shot-teapot.jpg" alt="Tetera con luz" data-cap="deko3d · 07" width="960" height="540" loading="lazy">
           <img src="assets/shot-texture.jpg" alt="Cubo con textura" data-cap="deko3d · 04" width="960" height="540" loading="lazy">
           <img src="assets/shot-msaa.jpg" alt="MSAA" data-cap="deko3d · 06" width="960" height="540" loading="lazy">
           <img src="assets/shot-triangle.jpg" alt="Triángulo" data-cap="deko3d · 02" width="960" height="540" loading="lazy">
           <img src="assets/screen-pong.png" alt="UMSDPong" data-cap="libnx" width="960" height="540" loading="lazy">
         </div>
-        <figcaption><span><b id="cap">deko3d · 07</b> · <span data-i18n="home.capnote">captura real de NeXo</span></span><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span></figcaption>
+        <figcaption><span><b id="cap">hbmenu</b> · <span data-i18n="home.capnote">captura real de NeXo</span></span><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></span></figcaption>
       </figure>
     </div>
 
     <div class="facts">
       <div class="fact reveal"><b><span class="count" data-to="100">100</span>%</b><span data-i18n="home.f1">CPU ARM64 idéntica a un ARM real en 78&nbsp;000 instrucciones al azar</span></div>
       <div class="fact reveal" style="--d:.08s"><b>×<span class="count" data-to="6">6</span></b><span data-i18n="home.f2">más rápida con el JIT: ~1&nbsp;100 millones de instrucciones por segundo</span></div>
-      <div class="fact reveal" style="--d:.16s"><b><span class="count" data-to="7">7</span>/9</b><span data-i18n="home.f3">ejemplos 3D oficiales de deko3d funcionando</span></div>
-      <div class="fact reveal" style="--d:.24s"><b><span class="count" data-to="178">178</span></b><span data-i18n="home.f4">tests automáticos, con intérprete y con JIT</span></div>
+      <div class="fact reveal" style="--d:.16s"><b><span class="count" data-to="6">6</span></b><span data-i18n="home.f3">núcleos emulados, cada uno en su propio hilo del PC; la GPU, en otro</span></div>
+      <div class="fact reveal" style="--d:.24s"><b><span class="count" data-to="196">196</span></b><span data-i18n="home.f4">tests automáticos, con intérprete y con JIT</span></div>
     </div>
   </section>
 

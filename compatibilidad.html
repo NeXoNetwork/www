@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n="meta.compat">Compatibilidad — NeXo 2</title>
   <meta name="description" content="Lo que ya funciona en NeXo 2: capturas reales y la lista de programas probados.">
-  <meta name="theme-color" content="#f2efe7">
+  <meta name="theme-color" content="#f2efe7" id="theme-color">
+  <meta name="color-scheme" content="light dark">
   <meta property="og:title" content="Compatibilidad — NeXo 2">
   <meta property="og:description" content="Lo que ya funciona en NeXo 2: capturas reales y la lista de programas probados.">
   <meta property="og:image" content="assets/og.jpg">
@@ -15,7 +16,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>(function(){var d=document.documentElement,t=null;d.classList.add("js");try{t=localStorage.getItem("nexo-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",t);document.getElementById("theme-color").content=t==="dark"?"#121211":"#f2efe7"})()</script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
@@ -29,6 +30,7 @@
       <a href="compilar.html"><span>04</span><em data-i18n="nav.build" style="font-style:normal">Compilar</em></a>
     </nav>
     <div class="tools">
+      <button class="theme" id="theme" type="button" aria-label="Tema claro u oscuro / Light or dark theme" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v3M12 19.2v3M1.8 12h3M19.2 12h3M4.8 4.8l2.1 2.1M17.1 17.1l2.1 2.1M4.8 19.2l2.1-2.1M17.1 6.9l2.1-2.1"/></g><path class="moon" d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/></svg></button>
       <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button>
       <a class="gh" href="https://github.com/NeXoNetwork/NeXo2-emu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><b>GitHub</b></a>
       <button class="burger" id="burger" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
@@ -70,6 +72,14 @@
         <div class="frame"><div><img src="assets/screen-pong.png" alt="UMSDPong" loading="lazy" width="960" height="540"></div></div>
         <figcaption><b data-i18n="c.pong.t">UMSDPong</b><span data-i18n="c.pong">Jugable con mando</span></figcaption>
       </figure>
+      <figure class="shot half reveal" style="--d:0s">
+        <div class="frame"><div><img src="assets/shot-hbmenu.jpg" alt="hbmenu" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.hb.t">hbmenu</b><span data-i18n="c.hb">El menú de homebrew, con fuente del sistema</span></figcaption>
+      </figure>
+      <figure class="shot half reveal" style="--d:.08s">
+        <div class="frame"><div><img src="assets/shot-appstore.jpg" alt="Homebrew App Store" loading="lazy" width="960" height="540"></div></div>
+        <figcaption><b data-i18n="c.as.t">Homebrew App Store</b><span data-i18n="c.as">Catálogo real descargado por https</span></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -82,6 +92,9 @@
       <thead><tr><th data-i18n="c.th1">Programa</th><th data-i18n="c.th2">Tipo</th><th data-i18n="c.th3">Notas</th><th data-i18n="c.th4">Estado</th></tr></thead>
       <tbody>
         <tr><td>deko3d examples</td><td>Homebrew · deko3d</td><td data-i18n="c.n1">Triángulo, cubos, texturas, MSAA, iluminación y deferred shading. Faltan teselado y compute.</td><td><span class="state part" data-i18n="c.s1">7 de 9</span></td></tr>
+        <tr><td>hbmenu</td><td>Homebrew · libnx</td><td data-i18n="c.n6">Lista los .nro de la SD, muestra iconos y abre otros programas (carga en cadena).</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
+        <tr><td>Homebrew App Store</td><td>Homebrew · SDL2</td><td data-i18n="c.n7">Descarga el catálogo por https (TLS de verdad) y se navega con el mando.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
+        <tr><td>GTA Chinatown Wars</td><td data-i18n="c.port">Port homebrew</td><td data-i18n="c.n8">Arranca y pide sus archivos de datos, que no se incluyen.</td><td><span class="state part" data-i18n="c.s8">Arranca</span></td></tr>
         <tr><td>UMSDPong</td><td>Homebrew · libnx</td><td data-i18n="c.n2">Se juega con teclado o mando de Xbox.</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
         <tr><td>NX-FixCheat</td><td>Homebrew · libnx</td><td data-i18n="c.n3">Menú completo y navegación con el mando.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
         <tr><td>libnx_init, threads, gpu</td><td data-i18n="c.own">Tests propios</td><td data-i18n="c.n4">Arranque de libnx, hilos en 4 núcleos y canal de la GPU.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
