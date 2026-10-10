@@ -16,7 +16,7 @@
     "nav.home": "Home", "nav.compat": "Compatibility", "nav.inside": "Inside", "nav.build": "Build",
     "home.meta1": "In development · v0.0.2", "home.meta2": "C++20 · Open source · GPLv3",
     "home.h": ["Switch 2,", "from", "<span class=\"red\">scratch.</span>"],
-    "home.lede": "NeXo 2 is an experimental Nintendo Switch 2 emulator. The CPU, the kernel and the GPU are written by hand, documented and checked with tests. It doesn't run commercial games yet; homebrew it does, and it already draws in 3D.",
+    "home.lede": "NeXo 2 is an experimental Nintendo Switch 2 emulator. The CPU, the kernel and the GPU they are written from scratch, documented and checked with tests. It doesn't run commercial games yet; homebrew it does, and it already draws in 3D.",
     "home.cta1": "View on GitHub", "home.cta2": "What works",
     "home.capnote": "real NeXo screenshot",
     "home.f1": "ARM64 CPU identical to a real ARM across 78&nbsp;000 random instructions",
