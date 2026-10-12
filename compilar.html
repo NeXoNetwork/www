@@ -44,7 +44,7 @@
       <div>
         <span class="label"><span class="red">04</span> — <span data-i18n="nav.build">Compilar</span></span>
         <h1 class="title" data-i18n-lines="nav.build.h"><span class="line"><span style="--d:0.00s">Compílalo</span></span><span class="line"><span style="--d:0.08s">tú</span></span></h1>
-        <p class="lede reveal" style="--d:.25s" data-i18n="b.lede">Cada commit se compila solo y sale como prerelease en GitHub (Windows x64): descomprime, pon tus .nro en sdmc/switch y abre NeXo2.exe. O compílalo tú en unos minutos.</p>
+        <p class="lede reveal" style="--d:.25s" data-i18n="b.lede">Cada commit se compila solo y sale como prerelease en GitHub (Windows x64): descomprime, abre NeXo2-Qt.exe y añade la carpeta de tus juegos. O compílalo tú en unos minutos.</p>
       </div>
       <div class="reveal" style="--d:.3s"><a class="btn" href="https://github.com/NeXoNetwork/NeXo2-emu/releases" data-i18n="b.dl">Descargar prerelease</a></div>
     </div>
@@ -58,6 +58,7 @@
           <li><div><b>Visual Studio 2022</b><span data-i18n="b.r1">Con «Desarrollo para el escritorio con C++».</span></div></li>
           <li><div><b>CMake 3.25+</b><span data-i18n="b.r2">El de cmake.org o el que trae Visual Studio.</span></div></li>
           <li><div><b>Git</b><span data-i18n="b.r3">Para descargar el código y sus submódulos.</span></div></li>
+          <li><div><b>Python 3</b><span data-i18n="b.r5">Solo la primera vez: build.bat lo usa para descargar Qt 6.</span></div></li>
           <li><div><b data-i18n="b.r4t">Una GPU con Vulkan</b><span data-i18n="b.r4">Opcional por ahora: sin ella, NeXo dibuja por software.</span></div></li>
         </ol>
       </div>
@@ -67,9 +68,9 @@
 <pre id="cmd"><span class="p">&gt; </span>git clone --recursive https://github.com/NeXoNetwork/NeXo2-emu.git
 <span class="p">&gt; </span>cd NeXo2-emu
 <span class="p">&gt; </span>build.bat test
-<span class="p">&gt; </span>build\Release\NeXo2.exe</pre>
+<span class="p">&gt; </span>build\Release\NeXo2-Qt.exe</pre>
         </div>
-        <p class="note" data-i18n="b.note"><code>build.bat</code> busca el CMake de Visual Studio (aunque tengas devkitPro), compila en Release y, con <code>test</code>, pasa los tests. Si ya lo tenías clonado, trae los submódulos nuevos (como mbedTLS) con <code>git submodule update --init --recursive</code>. Después arrastra un <code>.nro</code> a la ventana (o «Cargar NRO») y pulsa Run o F5.</p>
+        <p class="note" data-i18n="b.note"><code>build.bat</code> busca el CMake de Visual Studio (aunque tengas devkitPro), descarga Qt 6 en <code>externals\qt</code> si no lo tienes, compila en Release y, con <code>test</code>, pasa los tests. Si ya lo tenías clonado, trae los submódulos nuevos con <code>git submodule update --init --recursive</code>. <code>NeXo2-Qt.exe</code> es para jugar; <code>NeXo2.exe</code>, con ventanas de depuración, para desarrollar. Para NSP y XCI pon tu <code>prod.keys</code> en la carpeta <code>keys</code>.</p>
       </div>
     </div>
   </section>

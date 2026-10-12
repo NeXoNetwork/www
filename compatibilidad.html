@@ -86,20 +86,22 @@
   <section class="block">
     <div class="block-head reveal">
       <h2 data-i18n="c.list">Programas probados</h2>
-      <p data-i18n="c.listnote">Sólo homebrew. NeXo no incluye ni ayuda a conseguir juegos, firmware ni claves.</p>
+      <p data-i18n="c.listnote">NeXo no incluye ni ayuda a conseguir juegos, firmware ni claves. Para un NSP o un XCI hacen falta tu copia del juego y las claves de tu consola.</p>
     </div>
     <table class="table reveal">
       <thead><tr><th data-i18n="c.th1">Programa</th><th data-i18n="c.th2">Tipo</th><th data-i18n="c.th3">Notas</th><th data-i18n="c.th4">Estado</th></tr></thead>
       <tbody>
         <tr><td>deko3d examples</td><td>Homebrew · deko3d</td><td data-i18n="c.n1">Triángulo, cubos, texturas, MSAA, iluminación y deferred shading. Faltan teselado y compute.</td><td><span class="state part" data-i18n="c.s1">7 de 9</span></td></tr>
-        <tr><td>Nazi Zombies Portable</td><td>Homebrew · SDL2 + OpenGL</td><td data-i18n="c.n9">Se juega en 3D, con sonido. Lento con la GPU por software (unas 7 imágenes por segundo).</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
+        <tr><td>Nazi Zombies Portable</td><td>Homebrew · SDL2 + OpenGL</td><td data-i18n="c.n9">Se juega en 3D, con sonido. Con Vulkan va a unas 60 imágenes por segundo.</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
         <tr><td>hbmenu</td><td>Homebrew · libnx</td><td data-i18n="c.n6">Lista los .nro de la SD, muestra iconos y abre otros programas (carga en cadena).</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
         <tr><td>Homebrew App Store</td><td>Homebrew · SDL2</td><td data-i18n="c.n7">Descarga el catálogo por https (TLS de verdad) y se navega con el mando.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
-        <tr><td>GTA Chinatown Wars</td><td data-i18n="c.port">Port homebrew</td><td data-i18n="c.n8">Arranca y pide sus archivos de datos, que no se incluyen.</td><td><span class="state part" data-i18n="c.s8">Arranca</span></td></tr>
+        <tr><td>GTA Chinatown Wars</td><td data-i18n="c.port">Port homebrew</td><td data-i18n="c.n8">Necesita sus archivos de datos, que no se incluyen. Con ellos entra en la partida.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
+        <tr><td>Sonic Robo Blast 2</td><td data-i18n="c.port">Port homebrew</td><td data-i18n="c.n10">Arranca y corre a 60 imágenes por segundo.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
         <tr><td>UMSDPong</td><td>Homebrew · libnx</td><td data-i18n="c.n2">Se juega con teclado o mando de Xbox.</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
         <tr><td>NX-FixCheat</td><td>Homebrew · libnx</td><td data-i18n="c.n3">Menú completo y navegación con el mando.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
         <tr><td>libnx_init, threads, gpu</td><td data-i18n="c.own">Tests propios</td><td data-i18n="c.n4">Arranque de libnx, hilos en 4 núcleos y canal de la GPU.</td><td><span class="state ok" data-i18n="c.s3">Funciona</span></td></tr>
-        <tr><td data-i18n="c.games">Juegos comerciales</td><td>—</td><td data-i18n="c.n5">Faltan Vulkan, audio y los formatos de juego (NSO, NCA).</td><td><span class="state no" data-i18n="c.s5">Todavía no</span></td></tr>
+        <tr><td>Arcade Archives EXCITEBIKE</td><td data-i18n="c.game.nsp">Juego · NSP</td><td data-i18n="c.n11">Menú y partida con sonido, dibujado con Vulkan.</td><td><span class="state ok" data-i18n="c.s2">Jugable</span></td></tr>
+        <tr><td>Pokémon Diamante Brillante</td><td data-i18n="c.game.xci">Juego · XCI</td><td data-i18n="c.n12">Carga desde el XCI y prepara memoria e hilos; se para al iniciar los gráficos (NVN).</td><td><span class="state no" data-i18n="c.s5">Todavía no</span></td></tr>
       </tbody>
     </table>
   </section>

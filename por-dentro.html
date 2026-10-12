@@ -70,12 +70,12 @@
       <li class="layer reveal" style="--d:.15s">
         <span class="tag">GPU</span>
         <h3 data-i18n="in.gpu.t">Gráficos</h3>
-        <div><p data-i18n="in.gpu">Comandos y macros de la GPU Maxwell en su propio hilo, intérprete de shaders, rasterizador por software en varios hilos con caché de texturas, BC1–BC5, mipmaps y MSAA. Ahora, Vulkan.</p><ul><li>Maxwell</li><li>BC1–BC5</li><li>MSAA</li></ul></div>
+        <div><p data-i18n="in.gpu">Comandos y macros de la GPU Maxwell en su propio hilo. Con Vulkan, los shaders de vértices y de píxeles se traducen a SPIR-V y corren en la tarjeta gráfica; sin ella, un rasterizador por software en varios hilos. Texturas BC1–BC5, mipmaps y MSAA.</p><ul><li>Maxwell</li><li>Vulkan</li><li>SPIR-V</li><li>BC1–BC5</li></ul></div>
       </li>
       <li class="layer reveal" style="--d:.2s">
         <span class="tag">AUD</span>
         <h3 data-i18n="in.aud.t">Sonido</h3>
-        <div><p data-i18n="in.aud">La salida de audio de la consola (audout) suena por la tarjeta del PC con SDL3, y cada buffer se suelta a su hora para que el programa vaya a su ritmo.</p><ul><li>audout</li><li>48 kHz</li><li>SDL3</li></ul></div>
+        <div><p data-i18n="in.aud">El renderizador de audio de la consola (audren), con sus voces, mezcladores y efectos, y la salida simple (audout) suenan por la tarjeta del PC con SDL3, cada buffer a su hora.</p><ul><li>audren</li><li>audout</li><li>48 kHz</li><li>SDL3</li></ul></div>
       </li>
       <li class="layer reveal" style="--d:.2s">
         <span class="tag">NET</span>
@@ -90,8 +90,8 @@
       <h2 data-i18n="in.road">La ruta</h2>
       <p data-i18n="in.roadnote">En orden y sin fechas: cada paso se da cuando el anterior está bien hecho y probado.</p>
     </div>
-    <div class="bar-legend reveal"><span data-i18n="in.progress">Progreso general</span><span>6 / 9</span></div>
-    <div class="bar reveal"><i style="--w:67%"></i></div>
+    <div class="bar-legend reveal"><span data-i18n="in.progress">Progreso general</span><span>8 / 9</span></div>
+    <div class="bar reveal"><i style="--w:89%"></i></div>
     <ol class="road">
       <li class="done reveal"><span class="k">01</span><div><b data-i18n="r1.t">Base</b><div class="s" data-i18n="r1">Memoria, cargador NRO, kernel HLE e IPC</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
       <li class="done reveal"><span class="k">02</span><div><b data-i18n="r2.t">Pantalla y mandos</b><div class="s" data-i18n="r2">El primer homebrew real en pantalla</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
@@ -99,9 +99,9 @@
       <li class="done reveal"><span class="k">04</span><div><b data-i18n="r4.t">Hilos</b><div class="s" data-i18n="r4">6 núcleos emulados en hilos reales y la GPU en el suyo</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
       <li class="done reveal"><span class="k">05</span><div><b data-i18n="r5.t">GPU por software</b><div class="s" data-i18n="r5">Shaders, texturas, 3D</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
       <li class="done reveal"><span class="k">06</span><div><b data-i18n="r9.t">Red y https</b><div class="s" data-i18n="r9">Sockets, DNS y TLS con mbedTLS</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
-      <li class="now reveal"><span class="k">07</span><div><b data-i18n="r6.t">Vulkan</b><div class="s" data-i18n="r6">Dibujar con la tarjeta gráfica</div></div><span class="st" data-i18n="st.now">En curso</span></li>
-      <li class="now reveal"><span class="k">08</span><div><b data-i18n="r7.t">Audio</b><div class="s" data-i18n="r7">audout ya suena por el PC; falta audren</div></div><span class="st" data-i18n="st.now">En curso</span></li>
-      <li class="next reveal"><span class="k">09</span><div><b data-i18n="r8.t">Formatos de juego</b><div class="s" data-i18n="r8">NSO, NCA y RomFS</div></div><span class="st" data-i18n="st.next">Después</span></li>
+      <li class="done reveal"><span class="k">07</span><div><b data-i18n="r7.t">Audio</b><div class="s" data-i18n="r7">audout y audren, con mezcladores y efectos</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="done reveal"><span class="k">08</span><div><b data-i18n="r8.t">Formatos de juego</b><div class="s" data-i18n="r8">NSP, XCI, NCA, NSO y RomFS, con las claves de tu consola</div></div><span class="st" data-i18n="st.done">Hecho</span></li>
+      <li class="now reveal"><span class="k">09</span><div><b data-i18n="r6.t">Vulkan</b><div class="s" data-i18n="r6">Dibujar con la tarjeta gráfica: ya corren los shaders en la GPU</div></div><span class="st" data-i18n="st.now">En curso</span></li>
     </ol>
   </section>
 
